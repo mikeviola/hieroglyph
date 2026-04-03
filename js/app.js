@@ -1,7 +1,7 @@
 // ── APP ROUTER & INITIALIZATION ────────────────────────────────────────────────
 
 const App = (() => {
-  const pages = ['home', 'lessons', 'flashcards', 'quiz', 'translate', 'reference'];
+  const pages = ['home', 'lessons', 'texts', 'flashcards', 'quiz', 'translate', 'reference'];
   let current = 'home';
 
   function navigate(pageId) {
@@ -22,10 +22,11 @@ const App = (() => {
     current = pageId;
 
     // Initialize module if needed
-    if (pageId === 'lessons')   LessonsModule.init();
+    if (pageId === 'lessons')    LessonsModule.init();
+    if (pageId === 'texts')      ReaderModule.init();
     if (pageId === 'flashcards') FlashcardsModule.init();
-    if (pageId === 'quiz')      QuizModule.init();
-    if (pageId === 'translate') TranslateModule.init();
+    if (pageId === 'quiz')       QuizModule.init();
+    if (pageId === 'translate')  TranslateModule.init();
 
     // Scroll to top
     const mc = document.querySelector('.main-content');
