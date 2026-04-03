@@ -2,8 +2,8 @@
 // ANCIENT EGYPTIAN TEXTS
 // Story of Sinuhe — Papyrus Berlin 3022 (B-text), c. 1875 BCE
 // Transliteration follows standard Egyptological conventions.
-// Hieroglyphs are rendered in Unicode (U+13000 block) using
-// phonetic uniliteral signs as an educational approximation.
+// Hieroglyphs use standard Middle Egyptian orthography where known.
+// Signs confirmed against Sinuhe manuscript: iry-pʿt, ḥȝty-ʿ.
 // ============================================================
 
 const TEXTS = {
@@ -30,7 +30,7 @@ const TEXTS = {
         words: [
           {
             id: 'B1-w1',
-            hieroglyphs: '𓇋𓂋𓇌𓊪𓂝𓏏',
+            hieroglyphs: '𓂋𓊪𓂝𓏏',
             transliteration: 'iry-pʿt',
             translation: 'hereditary prince',
             pos: 'Honorific title',
@@ -43,7 +43,7 @@ const TEXTS = {
           },
           {
             id: 'B1-w2',
-            hieroglyphs: '𓎛𓈠𓏏𓇌𓂝',
+            hieroglyphs: '𓄂𓂝',
             transliteration: 'ḥȝty-ʿ',
             translation: 'count',
             pos: 'Honorific title',
