@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hieroglyph — Learn Ancient Egyptian Writing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-glyph">𓂀</span>
+      <h1>Hieroglyph</h1>
+      <p>Learn Ancient Egyptian</p>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Learn</div>
+      <button class="nav-item" data-page="home">
+        <span class="nav-emoji">🏛️</span>
+        Home
+      </button>
+      <button class="nav-item" data-page="lessons">
+        <span class="nav-icon">𓇋</span>
+        Lessons
+      </button>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Practice</div>
+      <button class="nav-item" data-page="flashcards">
+        <span class="nav-icon">𓄿</span>
+        Flashcards
+      </button>
+      <button class="nav-item" data-page="quiz">
+        <span class="nav-icon">𓂋</span>
+        Quiz
+      </button>
+      <button class="nav-item" data-page="translate">
+        <span class="nav-icon">𓏏</span>
+        Transliterate
+      </button>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Reference</div>
+      <button class="nav-item" data-page="reference">
+        <span class="nav-emoji">📖</span>
+        Sign List
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      Based on Gardiner's Sign List<br>
+      Unicode Egyptian Hieroglyphs
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ────────────────────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- HOME ─────────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-home">
+      <div class="home-hero">
+        <div class="hero-eyebrow">Ancient Egyptian Writing</div>
+        <h2 class="hero-title">Read the Words of the Gods</h2>
+        <p class="hero-sub">
+          Master Egyptian hieroglyphs — one of humanity's oldest and most beautiful
+          writing systems — through structured lessons, flashcards, and quizzes.
+        </p>
+        <div class="hero-glyphs">𓄿𓇋𓅱𓃀𓊪𓆑𓅓𓈖𓂋𓉔</div>
+        <div class="home-stats">
+          <div class="stat-item"><div class="stat-num">24+</div><div class="stat-label">Uniliteral Signs</div></div>
+          <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Lessons</div></div>
+          <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Practice Modes</div></div>
+          <div class="stat-item"><div class="stat-num">3500+</div><div class="stat-label">Years of History</div></div>
+        </div>
+      </div>
+
+      <div class="home-features">
+        <div class="features-heading">Start your journey with the sacred script:</div>
+        <div class="feature-cards">
+          <div class="feature-card" onclick="App.navigate('lessons')">
+            <span class="feature-icon">𓇋</span>
+            <div class="feature-title">Lessons</div>
+            <p class="feature-desc">Structured curriculum from the history of hieroglyphs through reading and grammar basics.</p>
+          </div>
+          <div class="feature-card" onclick="App.navigate('flashcards')">
+            <span class="feature-icon">𓄿</span>
+            <div class="feature-title">Flashcards</div>
+            <p class="feature-desc">Flip through all the signs — see the hieroglyph, guess the transliteration, check your answer.</p>
+          </div>
+          <div class="feature-card" onclick="App.navigate('quiz')">
+            <span class="feature-icon">𓂋</span>
+            <div class="feature-title">Quiz</div>
+            <p class="feature-desc">Test yourself with randomized multiple-choice questions across three different question types.</p>
+          </div>
+          <div class="feature-card" onclick="App.navigate('translate')">
+            <span class="feature-icon">𓏏</span>
+            <div class="feature-title">Transliterate</div>
+            <p class="feature-desc">Compose sequences of hieroglyphs using a visual keyboard and see their transliteration.</p>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="card-grid card-grid-2">
+          <div class="card">
+            <h4 style="color:var(--gold);margin-bottom:12px;font-size:0.95rem">Recommended Path</h4>
+            <ol style="padding-left:20px;color:var(--text-muted);font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:2">
+              <li>Start with <strong style="color:var(--text-main)">Introduction to Hieroglyphs</strong></li>
+              <li>Learn <strong style="color:var(--text-main)">The Alphabet (Uniliterals)</strong></li>
+              <li>Study <strong style="color:var(--text-main)">Determinatives</strong></li>
+              <li>Practice with <strong style="color:var(--text-main)">Flashcards</strong> daily</li>
+              <li>Test yourself with the <strong style="color:var(--text-main)">Quiz</strong></li>
+            </ol>
+          </div>
+          <div class="card">
+            <h4 style="color:var(--gold);margin-bottom:12px;font-size:0.95rem">Did You Know?</h4>
+            <p class="font-serif" style="color:var(--text-muted);font-size:1.05rem;line-height:1.7">
+              The word <em>hieroglyph</em> comes from Greek: <strong style="color:var(--text-main)">hieros</strong> (sacred)
+              + <strong style="color:var(--text-main)">glyphe</strong> (carving). Egyptians themselves called their
+              script <span style="font-family:'Noto Sans Egyptian Hieroglyphs',serif;color:var(--gold)">𓇯𓏏𓂋𓅱</span>
+              <em>mdw nṯr</em> — "the words of god."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSONS ──────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-lessons">
+      <div class="page-header">
+        <div class="breadcrumb">Learn</div>
+        <h2>Lessons</h2>
+        <p>Structured curriculum covering the history, signs, and grammar of ancient Egyptian hieroglyphs</p>
+      </div>
+      <div class="page-body">
+        <div id="lessons-list-wrapper">
+          <div id="lessons-list" class="lesson-list"></div>
+        </div>
+        <div id="lesson-detail" class="hidden"></div>
+      </div>
+    </div>
+
+    <!-- FLASHCARDS ───────────────────────────────────────────────────────── -->
+    <div class="page" id="page-flashcards">
+      <div class="page-header">
+        <div class="breadcrumb">Practice</div>
+        <h2>Flashcards</h2>
+        <p>Click a card to flip it and reveal the transliteration and description</p>
+      </div>
+      <div class="page-body">
+        <!-- Filter controls -->
+        <div class="flashcard-controls">
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all"
+                    onclick="FlashcardsModule.setFilter('all')">All Signs</button>
+            <button class="filter-btn" data-filter="uniliteral"
+                    onclick="FlashcardsModule.setFilter('uniliteral')">Uniliterals</button>
+            <button class="filter-btn" data-filter="biliteral"
+                    onclick="FlashcardsModule.setFilter('biliteral')">Biliterals</button>
+            <button class="filter-btn" data-filter="determinative"
+                    onclick="FlashcardsModule.setFilter('determinative')">Determinatives</button>
+          </div>
+          <button class="btn btn-secondary" style="margin-left:auto" onclick="FlashcardsModule.shuffle()">
+            ⇄ Shuffle
+          </button>
+        </div>
+
+        <!-- Card stage -->
+        <div class="flashcard-stage">
+          <div class="flashcard-counter" id="fc-counter">1 / 1</div>
+
+          <div class="flip-card" id="fc-card" onclick="FlashcardsModule.flip()">
+            <div class="flip-card-inner">
+              <!-- Front -->
+              <div class="flip-face flip-front">
+                <div class="flip-front card-glyph glyph-display" id="fc-front-glyph">𓄿</div>
+                <div class="flip-front card-hint">Click to reveal →</div>
+              </div>
+              <!-- Back -->
+              <div class="flip-face flip-back">
+                <div class="card-transliteration" id="fc-back-translit">ȝ</div>
+                <div class="card-pronunciation"   id="fc-back-pronun"></div>
+                <div class="card-name"             id="fc-back-name"></div>
+                <div class="card-desc"             id="fc-back-desc"></div>
+                <div class="card-mnemonic"         id="fc-back-mnemonic"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="flashcard-nav">
+            <button class="btn btn-secondary" id="fc-prev" onclick="FlashcardsModule.prev()">← Prev</button>
+            <div class="fc-progress">
+              <div class="fc-progress-bar" id="fc-progress-bar" style="width:4%"></div>
+            </div>
+            <button class="btn btn-secondary" id="fc-next" onclick="FlashcardsModule.next()">Next →</button>
+          </div>
+
+          <p class="text-small text-muted">
+            Tip: Use the filter above to focus on a specific sign category
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ ─────────────────────────────────────────────────────────────── -->
+    <div class="page" id="page-quiz">
+      <div class="page-header">
+        <div class="breadcrumb">Practice</div>
+        <h2>Quiz</h2>
+        <p>Test your knowledge of hieroglyphic signs with randomized questions</p>
+      </div>
+      <div class="page-body">
+        <div id="quiz-wrapper"></div>
+      </div>
+    </div>
+
+    <!-- TRANSLITERATE ────────────────────────────────────────────────────── -->
+    <div class="page" id="page-translate">
+      <div class="page-header">
+        <div class="breadcrumb">Practice</div>
+        <h2>Transliteration Tool</h2>
+        <p>Compose a sequence of hieroglyphs using the keyboard below and see its transliteration</p>
+      </div>
+      <div class="page-body">
+        <div class="translate-layout">
+          <!-- Left: display panels -->
+          <div>
+            <div class="translate-panel" style="margin-bottom:16px">
+              <div class="translate-panel-header">Hieroglyphs</div>
+              <div class="translate-display" id="tr-glyph-display">
+                <span style="color:var(--text-dim);font-family:'Crimson Pro',serif;font-size:1.2rem;font-style:italic">
+                  Select signs below…
+                </span>
+              </div>
+              <div class="translate-actions">
+                <button class="btn btn-secondary" style="font-size:0.78rem" onclick="TranslateModule.deleteLast()">⌫ Delete</button>
+                <button class="btn btn-secondary" style="font-size:0.78rem" onclick="TranslateModule.clearAll()">Clear All</button>
+              </div>
+            </div>
+
+            <div class="translate-panel">
+              <div class="translate-panel-header">Transliteration</div>
+              <div class="translate-transliteration" id="tr-translit-display"
+                   style="color:var(--text-dim);font-size:1.4rem;font-style:italic">
+              </div>
+              <div class="translate-actions">
+                <button id="tr-copy-btn" class="btn btn-secondary" style="font-size:0.78rem"
+                        onclick="TranslateModule.copyTranslit()">
+                  Copy Transliteration
+                </button>
+              </div>
+            </div>
+
+            <div id="tr-info-panel" style="margin-top:16px;background:var(--dark-card);border:1px solid var(--dark-border);border-radius:var(--radius)">
+              <div style="text-align:center;color:var(--text-dim);padding:32px 16px;font-family:'Crimson Pro',serif;font-size:1.05rem;font-style:italic">
+                Click hieroglyphs below to compose a sequence
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: scrollable keyboard -->
+          <div>
+            <div class="translate-keyboard" id="tr-keyboard"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGN LIST REFERENCE ──────────────────────────────────────────────── -->
+    <div class="page" id="page-reference">
+      <div class="page-header">
+        <div class="breadcrumb">Reference</div>
+        <h2>Sign List</h2>
+        <p>Complete reference of all hieroglyphic signs in this curriculum</p>
+      </div>
+      <div class="page-body" id="reference-body">
+        <!-- Rendered by inline script below -->
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── SCRIPTS ──────────────────────────────────────────────────────────────── -->
+<script src="js/data.js"></script>
+<script src="js/lessons.js"></script>
+<script src="js/flashcards.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/translate.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Render the reference sign list inline -->
+<script>
+(function renderReference() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const body = document.getElementById('reference-body');
+    if (!body) return;
+
+    function section(title, signs, extraCols) {
+      return `
+        <h3 style="font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;margin-bottom:16px">${title}</h3>
+        <div style="overflow-x:auto;margin-bottom:40px">
+          <table style="width:100%;border-collapse:collapse;font-size:0.88rem">
+            <thead>
+              <tr style="border-bottom:2px solid var(--dark-border);text-align:left">
+                <th style="padding:8px 16px 8px 0;color:var(--text-dim);font-weight:600;white-space:nowrap">Gardiner</th>
+                <th style="padding:8px 16px;color:var(--text-dim);font-weight:600">Sign</th>
+                <th style="padding:8px 16px;color:var(--text-dim);font-weight:600">Transliteration</th>
+                <th style="padding:8px 16px;color:var(--text-dim);font-weight:600">Name</th>
+                <th style="padding:8px 16px;color:var(--text-dim);font-weight:600">Pronunciation</th>
+                ${extraCols ? `<th style="padding:8px 16px;color:var(--text-dim);font-weight:600">Notes</th>` : ''}
+              </tr>
+            </thead>
+            <tbody>
+              ${signs.map((s, i) => `
+                <tr style="border-bottom:1px solid var(--dark-border);${i % 2 === 0 ? '' : 'background:rgba(255,255,255,0.01)'}">
+                  <td style="padding:10px 16px 10px 0;color:var(--text-dim);font-family:monospace;white-space:nowrap">${s.gardiner}</td>
+                  <td style="padding:10px 16px;font-family:'Noto Sans Egyptian Hieroglyphs',serif;font-size:2rem;color:var(--gold-light)">${s.unicode}</td>
+                  <td style="padding:10px 16px;font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold)">${s.transliteration}</td>
+                  <td style="padding:10px 16px;color:var(--text-main)">${s.name}</td>
+                  <td style="padding:10px 16px;color:var(--text-muted);font-style:italic;font-family:'Crimson Pro',serif">${s.pronunciation}</td>
+                  ${extraCols ? `<td style="padding:10px 16px;color:var(--text-dim);font-family:'Crimson Pro',serif;font-size:0.92rem">${s.description.substring(0,80)}…</td>` : ''}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    body.innerHTML =
+      section('Uniliteral Signs — The Hieroglyphic Alphabet', HIEROGLYPHS.uniliterals, true) +
+      section('Common Biliteral Signs', HIEROGLYPHS.biliterals, true) +
+      section('Determinatives (Silent Classifiers)', HIEROGLYPHS.determinatives, true) +
+      `<hr class="divider">
+       <h3 style="font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;margin-bottom:16px">Vocabulary</h3>
+       <div class="card-grid card-grid-2">
+         ${HIEROGLYPHS.vocabulary.map(w => `
+           <div class="card">
+             <div style="font-family:'Noto Sans Egyptian Hieroglyphs',serif;font-size:2.5rem;color:var(--gold-light);margin-bottom:8px">${w.hieroglyphs}</div>
+             <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;margin-bottom:4px">${w.transliteration}</div>
+             <div style="font-weight:600;color:var(--text-main);margin-bottom:8px">${w.english}</div>
+             <div style="font-size:0.82rem;color:var(--text-dim);font-family:'Crimson Pro',serif;line-height:1.5">${w.notes}</div>
+             <div style="margin-top:8px"><span class="badge badge-lapis">${w.category}</span></div>
+           </div>
+         `).join('')}
+       </div>`;
+  });
+})();
+</script>
+
+</body>
+</html>
