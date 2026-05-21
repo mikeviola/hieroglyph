@@ -513,4 +513,251 @@ const TEXTS = {
     ],
   },
 
+  // ════════════════════════════════════════════════════════════════════
+  // THE TALE OF THE SHIPWRECKED SAILOR
+  // Papyrus Petersburg 1115 (Hermitage Museum), c. 1900 BCE
+  // ════════════════════════════════════════════════════════════════════
+  shipwrecked: {
+    id: 'shipwrecked',
+    title: 'The Tale of the Shipwrecked Sailor',
+    titleHiero: '𓇋𓈎𓂋𓇋𓅱𓇾',
+    subtitle: 'The Island at the Edge of the World',
+    source: 'Papyrus Petersburg 1115 (Hermitage Museum, St. Petersburg)',
+    period: 'Middle Kingdom, 12th Dynasty, c. 1900 BCE',
+    genre: 'Literary narrative (adventure tale)',
+    language: 'Middle Egyptian',
+    intro: `The Tale of the Shipwrecked Sailor is Egypt's earliest surviving adventure story — a tale-within-a-tale preserved on a single papyrus (P. Petersburg 1115) now in the Hermitage Museum. An official returning from a failed expedition is comforted by a subordinate sailor who tells his own astonishing story: shipwrecked alone on a magical island beyond the sea's edge, he was confronted by a vast golden serpent who turned out to be a god. The serpent prophesied his return home, loaded him with gifts, and vanished with the island beneath the waves. The text is remarkable for its narrative sophistication — a frame tale, an embedded adventure, a speaking divine serpent, and an island outside the boundaries of known geography. It engages deep Egyptian themes: fate, divine encounter, the nature of consolation, and the difference between a story that helps and one that merely passes time.`,
+    sections: [
+
+      // ── SECTION 1: The Courtier Speaks ────────────────────────────────────
+      {
+        id: 'prologue',
+        label: 'The Courtier Speaks',
+        referenceLines: 'Lines 1–12',
+        note: 'The tale opens mid-scene. A senior official, returning from a failed mining expedition to the south, is visibly distressed. His subordinate sailor speaks first — not with an account of the voyage but with a story. The frame narrative is established: storytelling as consolation.',
+        english: 'The worthy follower speaks: Let your heart be well, my lord — we have reached home. The mallet has been taken up, the mooring post driven in.',
+        words: [
+          {
+            id: 'S1-w1',
+            hieroglyphs: '𓇋𓈎𓂋',
+            transliteration: 'ỉqr',
+            translation: 'excellent / worthy / skilled',
+            pos: 'Adjective (used as substantive title)',
+            grammar: {
+              form: 'Adjective functioning as a nominal title',
+              breakdown: 'Root: ỉqr (to be excellent, to be skillful, to be distinguished)',
+              inflection: 'Masculine singular. Used here as a substantive: "the excellent one," "the worthy one." No gender/number suffix visible.',
+              notes: 'ỉqr is one of Egyptian\'s most loaded positive adjectives — it describes skilled craftsmen, competent officials, noble hearts, and effective speech. Its range encompasses intellectual, moral, and practical excellence simultaneously. Here it is used as a quasi-title: the subordinate speaker identifies himself as "the worthy one" — a capable, trustworthy servant whose advice can be taken seriously. This self-identification is the sailor\'s credential before he begins his story. Notably, the text credits the tale\'s telling to an anonymous "ỉqr sr" (worthy official/scribe) in the opening attribution — the author modestly effaces himself behind the role.',
+            },
+          },
+          {
+            id: 'S1-w2',
+            hieroglyphs: '𓎟𓇋',
+            transliteration: 'nb=ỉ',
+            translation: 'my lord',
+            pos: 'Noun + 1st person singular suffix pronoun',
+            grammar: {
+              form: 'Masculine noun nb + 1st singular suffix pronoun =ỉ',
+              breakdown: 'nb (lord, master, owner — V30 basket sign) + =ỉ (my — 1st m. sg. suffix pronoun)',
+              inflection: 'nb is an uninflected masculine noun. =ỉ (the reed, M17) is the 1st common singular suffix pronoun, indicating possession.',
+              notes: 'nb is among the most semantically rich words in Egyptian. As a common noun: "owner, master, lord." As a title: applied to kings, gods, and nobles. As a prefix: nb-r-ḏr = "Lord of All" (the king); nbt-ḥwt = "Lady of the Mansion" (Nephthys). The pair nb / nbt (masculine/feminine) mirror the fundamental Egyptian gendered ordering of the world. Here nb=ỉ, "my lord," establishes the social hierarchy of the frame narrative: the sailor is subordinate, his address respectful. The suffix =ỉ (first person singular) is one of the first a student of Egyptian masters — attached to nouns for possession, to verbs for subject, it is the primary marker of the self in the language.',
+            },
+          },
+          {
+            id: 'S1-w3',
+            hieroglyphs: '𓄤𓎡𓄤𓆑𓂋',
+            transliteration: 'ỉb=k nfr',
+            translation: 'your heart is well / let your heart be content',
+            pos: 'Nominal sentence (verbless clause)',
+            grammar: {
+              form: 'Verbless nominal/adjectival sentence: subject (ỉb=k) + predicate adjective (nfr)',
+              breakdown: 'ỉb (heart, F34) + =k (your, 2nd m. sg.) + nfr (well, good, fine, complete)',
+              inflection: 'ỉb=k: masculine noun + 2nd m. sg. possessive suffix. nfr: predicate adjective, masculine singular, agreeing with ỉb.',
+              notes: 'Middle Egyptian does not require a verb "to be" in adjectival sentences — the subject and predicate adjective are simply juxtaposed: ỉb=k nfr = "your heart good" = "your heart is well." This elegant economy is one of Egyptian grammar\'s most striking features. ỉb (heart) is the centre of Egyptian psychology: the seat of thought, intention, memory, and emotion — roughly what we divide between "mind" and "heart." nfr (good, well, complete) is perhaps the most positive word in the Egyptian language. Telling someone their heart is "nfr" is both a psychological reassurance and a moral compliment. The phrase recurs across Egyptian literature and letters as a conventional opening of comfort.',
+            },
+          },
+          {
+            id: 'S1-w4',
+            hieroglyphs: '𓇋𓇋𓈖𓏁',
+            transliteration: 'ỉỉ.n=n',
+            translation: 'we have come / we have arrived',
+            pos: 'Verb (sḏm.n=f, 1st common plural)',
+            grammar: {
+              form: 'sḏm.n=f (narrative past/perfective), 1st common plural',
+              breakdown: 'ỉỉ (to come, to arrive — a reduplicated/geminating root) + .n (past marker) + =n (we — 1st common plural suffix)',
+              inflection: 'ỉỉ is an irregular verb of motion; its present/habitual stem ỉỉ doubles the root. .n marks the past/perfective. =n is 1st common plural (masculine and feminine).',
+              notes: 'ỉỉ (to come) is one of Egyptian\'s most common and most irregular verbs. Its forms differ significantly across tenses — the perfective sḏm.n=f (ỉỉ.n=n, "we came/have arrived") uses the .n suffix as the canonical past marker of Middle Egyptian narrative. This .n suffix is one of the defining features of Middle Egyptian prose: almost every sequential narrative event is marked by it. The 1st plural suffix =n ("we") shifts the emotional register here from individual to collective — the whole expedition has returned safely, not just the sailor.',
+            },
+          },
+          {
+            id: 'S1-w5',
+            hieroglyphs: '𓂋𓇾𓏤',
+            transliteration: 'r tȝ',
+            translation: 'to land / to shore / home',
+            pos: 'Prepositional phrase',
+            grammar: {
+              form: 'Preposition r + noun tȝ + logographic stroke',
+              breakdown: 'r (to, toward, at) + tȝ (earth, land, ground — N16, the flat land sign + stroke Z1)',
+              inflection: 'r: directional preposition indicating arrival/goal. tȝ: masculine noun, written with its logogram (the flat land sign with the stroke marking it as a complete word).',
+              notes: 'tȝ (land, earth, ground) is the Egyptian word for the physical earth — as opposed to pt (sky) and nwt (the underground waters). In the phrase ỉỉ.n=n r tȝ, "we have come to land," it evokes the sailor\'s relief at touching ground after the sea voyage. tȝ also appears in the word for Egypt itself: Kmt (the Black Land), and in the dual form tȝwy (the Two Lands — Upper and Lower Egypt). The flat land hieroglyph (N16) visually captures the Egyptian landscape: the flat river valley floor stretching to the desert edge. The logographic stroke (Z1) is the universal Egyptian sign "read me as a complete word, not as my phonetic value."',
+            },
+          },
+        ],
+      },
+
+      // ── SECTION 2: The Storm at Sea ────────────────────────────────────────
+      {
+        id: 'storm',
+        label: 'The Storm at Sea',
+        referenceLines: 'Lines 20–45',
+        note: 'The sailor begins his embedded tale — and plunges immediately into catastrophe. The storm description is one of the most vivid pieces of nature writing in Egyptian literature, using precise measurements and active verbs to convey the terror of open-sea navigation.',
+        english: 'A storm broke out while we were on the great sea. A wave of eight cubits came toward us — it struck the mast before me.',
+        words: [
+          {
+            id: 'S2-w1',
+            hieroglyphs: '𓈖𓈙𓈖𓇋𓇶',
+            transliteration: 'nšny',
+            translation: 'storm / gale / whirlwind',
+            pos: 'Noun (masculine)',
+            grammar: {
+              form: 'Masculine noun, singular',
+              breakdown: 'Root: nšn (to rage, to storm — a verb describing violent weather or violent emotion)',
+              inflection: 'Masculine singular. The determinative 𓇶 (the storm/rain sign, N4) classifies it as a meteorological phenomenon.',
+              notes: 'nšny is Egyptian\'s primary word for a violent storm at sea or in the desert — a raging, disorienting meteorological event. Its root nšn (to be furious, to rage) is shared with words for rage, frenzy, and divine wrath — a storm is, etymologically, nature in a state of fury. The determinative (N4, the sky with rain falling) is one of the most vivid hieroglyphs: a sky sign from which lines descend, representing falling rain or hail. Determinatives like this are not read aloud — they simply categorise the word for the reader, a silent semantic tag. The appearance of nšny immediately signals danger; in Egyptian literature, storms are rarely background detail.',
+            },
+          },
+          {
+            id: 'S2-w2',
+            hieroglyphs: '𓅱𓄿𓆓𓅱𓂋',
+            transliteration: 'wȝḏ-wr',
+            translation: 'the great green / the sea',
+            pos: 'Compound noun (geographical term)',
+            grammar: {
+              form: 'Compound noun: wȝḏ (green, fresh, vigorous) + wr (great, large)',
+              breakdown: 'wȝḏ (the green, the verdant — applied to water, fresh plants, flourishing things) + wr (great, large — from a root meaning greatness)',
+              inflection: 'wȝḏ-wr functions as a fixed compound noun — the two elements are not separately inflected in this usage.',
+              notes: 'wȝḏ-wr, literally "the great green," is Egyptian\'s poetic name for the sea — specifically the Mediterranean or, in other contexts, the Red Sea. The choice of "green" rather than "blue" reflects Egyptian colour perception: wȝḏ covers both green and blue (and the fresh, vital, growing qualities associated with both). The Nile\'s colour and the sea\'s colour were linguistically grouped. The word wr (great) also appears in pr-ʿȝ (pharaoh — "great house") and in divine epithets. To the Egyptians, the sea was not a familiar highway but a dangerous, semi-mythological space — the wȝḏ-wr was the world\'s edge, beyond which normal geography did not apply. The Shipwrecked Sailor\'s island is precisely "beyond" this boundary.',
+            },
+          },
+          {
+            id: 'S2-w3',
+            hieroglyphs: '𓈖𓅱𓏏𓇼',
+            transliteration: 'nwt',
+            translation: 'wave / billow',
+            pos: 'Noun (feminine)',
+            grammar: {
+              form: 'Feminine noun, singular; logogram with water determinative',
+              breakdown: 'nwt (wave, billow — the moving water of sea or flood)',
+              inflection: 'Feminine, marked by the t ending (X1). The determinative 𓇼 (N21, a stretch of water with waves) classifies it as a body of moving water.',
+              notes: 'nwt is Egyptian\'s word for a wave on the open sea — distinguished from flood water (ḥʿpy) and river current (ỉtrw). The determinative (a flat wavy line representing water) is one of the most frequently seen in Egyptian texts — it appears under all water-related words. Egyptian has a rich vocabulary for different bodies and states of water, reflecting the Nile\'s central importance: the river (ỉtrw), the inundation (ḥʿpy), the sea (wȝḏ-wr), a pool (š), a canal (mr), rain (ỉwn or ỉnb). Each word carries different cultural associations. nwt in this context is immediately threatening — a single wave large enough to endanger a ship.',
+            },
+          },
+          {
+            id: 'S2-w4',
+            hieroglyphs: '𓐀𓏤𓅓𓎛',
+            transliteration: '8 mḥ',
+            translation: 'eight cubits',
+            pos: 'Cardinal number + unit of measurement',
+            grammar: {
+              form: 'Cardinal numeral (8) + noun mḥ (cubit — the standard Egyptian unit of length)',
+              breakdown: '8 (the numeral eight, written with eight strokes) + mḥ (cubit — approximately 52.5 cm, the length from elbow to fingertip)',
+              inflection: 'In Egyptian, cardinal numbers typically precede the noun they quantify. mḥ is masculine. No agreement marking is required between number and noun in most instances.',
+              notes: 'The cubit (mḥ) was the Egyptian standard unit of length — defined as the distance from the royal elbow to the tip of the middle finger, standardised at approximately 52.5 cm (the "royal cubit" of 7 palms). Eight cubits equals approximately 4.2 metres — a terrifying wave height for an open-water vessel. This precise measurement is characteristic of Egyptian literary realism: rather than vague superlatives ("a very large wave"), the text gives a specific, verifiable dimension, lending the account documentary credibility. Egyptian mathematical texts (like the Rhind Papyrus) show that cubits, palms, and fingers were used with great precision in engineering and surveying. Importing that precision into a literary text is a deliberate rhetorical choice.',
+            },
+          },
+          {
+            id: 'S2-w5',
+            hieroglyphs: '𓐍𓂋𓈖𓏁𓅱',
+            transliteration: 'ḫr.n=n',
+            translation: 'we capsized / we fell / we went down',
+            pos: 'Verb (sḏm.n=f, 1st common plural)',
+            grammar: {
+              form: 'sḏm.n=f (narrative past), 1st common plural',
+              breakdown: 'ḫr (to fall, to collapse, to capsize, to descend) + .n (past marker) + =n (we — 1st common plural)',
+              inflection: 'ḫr.n=n: the standard Middle Egyptian past narrative form. ḫr is a strong verb (its stem does not change).',
+              notes: 'ḫr (to fall, to collapse) covers a range of sudden downward motion — a person falling, a building collapsing, a ship capsizing, a tree felling. In the storm context, ḫr.n=n is viscerally effective: the whole crew and ship simply "fell." Egyptian narrative verbs in the sḏm.n=f form have a percussive quality — each .n=n clause is a discrete, completed action in sequence. The .n=n chain (we set out... a storm broke... a wave came... we capsized...) creates narrative momentum that mirrors the speed of the disaster. The lone survivor\'s account then switches from "we" to "I" — ḫr.n=n gives way to ỉwn.kw (I alone remained). That shift from plural to singular is one of the most devastating in Egyptian literature.',
+            },
+          },
+        ],
+      },
+
+      // ── SECTION 3: The Lord of the Island ─────────────────────────────────
+      {
+        id: 'serpent',
+        label: 'The Lord of the Island',
+        referenceLines: 'Lines 60–90',
+        note: 'The sailor, the sole survivor, finds himself on a magical island. Then a vast golden serpent appears — and speaks. The serpent is not a monster but a god, the island\'s divine ruler, whose own grief mirrors the sailor\'s isolation.',
+        english: 'Then he came upon me. Behold — a great serpent, thirty cubits long, his beard more than two cubits. His body was overlaid with gold, his eyebrows of true lapis lazuli.',
+        words: [
+          {
+            id: 'S3-w1',
+            hieroglyphs: '𓇋𓋴𓏏',
+            transliteration: 'ỉsṯ',
+            translation: 'then / now / behold',
+            pos: 'Discourse particle (temporal / presentative)',
+            grammar: {
+              form: 'Temporal and presentative particle, invariable',
+              breakdown: 'ỉsṯ (untranslatable particle signalling a new scene, a dramatic shift, or a temporal transition)',
+              inflection: 'Uninflected particle — takes no suffix pronouns, no gender/number marking.',
+              notes: 'ỉsṯ is one of Middle Egyptian\'s most characteristic discourse particles — it signals a shift in scene, a new development, or an important revelation. It can be translated as "then," "now," "meanwhile," or "behold," but none of these captures it exactly. Functionally, ỉsṯ is a narrative spotlight: it draws attention to what immediately follows. Its appearance here is dramatically perfect — after the survivor has described finding himself alone on the island, ỉsṯ pivots the reader\'s attention to the approaching serpent. In Egyptian literary texts, ỉsṯ at a scene break almost always signals something extraordinary is about to happen.',
+            },
+          },
+          {
+            id: 'S3-w2',
+            hieroglyphs: '𓆙𓅱𓂋𓏤',
+            transliteration: 'srf',
+            translation: 'serpent / snake',
+            pos: 'Noun (masculine)',
+            grammar: {
+              form: 'Masculine noun, singular, with serpent determinative',
+              breakdown: 'srf (serpent — a specific word for a large or divine snake)',
+              inflection: 'Masculine singular. The determinative is typically a serpent sign (the cobra or generic snake) classifying the word as a reptile.',
+              notes: 'Egyptian has multiple words for snake, reflecting the culture\'s complex relationship with serpents: ḏft (generic snake), ỉmy-wt (the serpent in the funerary context), ȝpf (the chaos serpent Apophis), and srf (here, a large divine serpent). The serpent of the island is described in terms of pure royal magnificence: gold body, lapis eyebrows, 30-cubit length. This is not the threatening chaos-serpent Apophis who must be defeated nightly — it is something closer to a solar deity in animal form. Egyptian theology held multiple, simultaneous serpent archetypes: destroyer, protector, underworld guardian, solar companion. The serpent of the Shipwrecked Sailor belongs to the divine-protective tradition.',
+            },
+          },
+          {
+            id: 'S3-w3',
+            hieroglyphs: '𓇋𓅱𓇾𓏤𓏥',
+            transliteration: 'ỉw pn',
+            translation: 'this island',
+            pos: 'Noun + demonstrative adjective',
+            grammar: {
+              form: 'Masculine noun ỉw (island) + masculine near demonstrative pn (this)',
+              breakdown: 'ỉw (island — a landmass surrounded by water, with the land determinative) + pn (this, masculine singular — the near demonstrative)',
+              inflection: 'ỉw is masculine. pn agrees in gender and number: pn (m. sg.), tn (f. sg.), ipn (m. pl.), iptn (f. pl.).',
+              notes: 'Egyptian has a full system of demonstrative adjectives and pronouns: pn/tn (this, near), pf/tf (that, far), pw/tw (the aforementioned). pn (masculine singular near demonstrative) is one of the most frequently encountered words in literary texts. The phrase ỉw pn — "this island" — appears repeatedly throughout the Shipwrecked Sailor as a refrain: it defines the space of the story, the magical place outside normal geography. ỉw (island) is a relatively rare word in Egyptian, reflecting the Nile Valley\'s geography — Egypt itself has no natural islands. The concept of an island is therefore already slightly foreign, slightly otherworldly, in the Egyptian imagination.',
+            },
+          },
+          {
+            id: 'S3-w4',
+            hieroglyphs: '𓈖𓃀𓅱𓂋',
+            transliteration: 'nbw',
+            translation: 'gold',
+            pos: 'Noun (masculine)',
+            grammar: {
+              form: 'Masculine noun, often used as a substantive or qualifying description',
+              breakdown: 'nbw (gold — the metal, but also radiance, solar perfection, divine materiality)',
+              inflection: 'Masculine singular. The -w ending is part of the root, not a plural marker here.',
+              notes: 'nbw (gold) is one of the most symbolically loaded materials in Egyptian culture. The gods\' flesh was believed to be gold — the sun\'s radiance made solid. The phrase "his body of gold" (ỉrt=f m nbw) describing the serpent immediately elevates him from creature to deity: only the divine are made of solar material. Gold also carried associations of incorruptibility and eternity — it does not tarnish, corrode, or decay. The choice of gold for the serpent\'s body is therefore a theological statement, not merely an aesthetic one. The complementary image — lapis lazuli (ḫsbḏ) for the eyebrows — is equally charged: lapis, with its deep blue flecked with gold, was the stone of the night sky and of the hair of the gods.',
+            },
+          },
+          {
+            id: 'S3-w5',
+            hieroglyphs: '𓅓𓎡𓄤𓎡',
+            transliteration: 'mk wi',
+            translation: 'behold me / here I am / see — it is I',
+            pos: 'Presentative particle + dependent pronoun',
+            grammar: {
+              form: 'Presentative particle mk + dependent (stressed) pronoun wi',
+              breakdown: 'mk (behold, see — the presentative particle, 2nd m. sg. form) + wi (me, I — 1st sg. dependent pronoun)',
+              inflection: 'mk: the 2nd m. sg. form of the presentative mk/mt/mtn. wi: the 1st singular dependent pronoun, used as the object of a presentative or as the subject in cleft-like emphasis.',
+              notes: 'mk is the Egyptian "presentative particle" — it functions like pointing at something and saying "look!" or "here is." It is unique to Egyptian grammar with no exact parallel in other languages. mk is sensitive to the person being addressed: mk (to a single male), mt (to a single female), mtn (to a group). wi is the 1st singular dependent pronoun — "me, I" — used when the pronoun is not attached as a suffix but stands as an independent object or focus. mk wi ("behold me") or the serpent\'s declaration of presence is a divine self-presentation formula. It appears in religious texts when gods announce themselves: the serpent, in uttering mk wi, is performing the speech act of divine epiphany — the same words a god uses when appearing to a worshipper.',
+            },
+          },
+        ],
+      },
+
+    ],
+  },
+
 };
