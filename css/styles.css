@@ -1,27 +1,28 @@
 /* ============================================================
-   HIEROGLYPH PLATFORM — Egyptian-inspired Design System
+   MEDU — Egyptian-inspired Design System
+   The ancient world, made readable.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ── CSS Variables ────────────────────────────────────────── */
 :root {
-  --gold:        #C9A84C;
-  --gold-light:  #E8C86E;
+  --gold:        #C9A027;
+  --gold-light:  #E8C547;
   --gold-dark:   #8B6914;
-  --sand:        #F2E6C2;
+  --sand:        #F2E4C4;
   --sand-light:  #FBF6EC;
   --sand-dark:   #D4C59A;
   --papyrus:     #EDE0C4;
-  --lapis:       #1B3A5C;
-  --lapis-light: #2B5C8A;
+  --lapis:       #1E3A8A;
+  --lapis-light: #2E50B8;
   --lapis-dark:  #0D1E30;
   --red:         #8B2020;
   --red-light:   #C43A3A;
-  --dark:        #111820;
-  --dark-panel:  #1A2535;
-  --dark-card:   #202D3F;
-  --dark-border: #2E3F55;
+  --dark:        #13111C;
+  --dark-panel:  #1A1730;
+  --dark-card:   #1E1B2E;
+  --dark-border: #2A2545;
   --text-main:   #E8DCC8;
   --text-muted:  #9AABB8;
   --text-dim:    #5A7080;
@@ -139,12 +140,12 @@ h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 600; }
 }
 
 .nav-item:hover {
-  background: rgba(201, 168, 76, 0.08);
+  background: rgba(201, 160, 39, 0.08);
   color: var(--text-main);
 }
 
 .nav-item.active {
-  background: rgba(201, 168, 76, 0.15);
+  background: rgba(201, 160, 39, 0.15);
   color: var(--gold);
 }
 
