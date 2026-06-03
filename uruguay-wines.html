@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinos del Uruguay — Notable Uruguayan Wines</title>
+  <style>
+    :root {
+      --burgundy: #5a1a2e;
+      --deep-red: #7d2a3c;
+      --wine: #9b3a50;
+      --blush: #c97a8a;
+      --cream: #f5efe8;
+      --parchment: #ede4d6;
+      --gold: #b8962e;
+      --gold-light: #d4b050;
+      --text: #2a1a20;
+      --text-muted: #6b4a55;
+      --white: #fdfaf6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(160deg, var(--burgundy) 0%, var(--deep-red) 60%, #3a0f1e 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 3.5rem 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+    header .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    header p.subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 480px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .header-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      background: var(--parchment);
+      border-bottom: 1px solid rgba(90,26,46,0.12);
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .filter-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+
+    .filter-btn {
+      border: 1.5px solid var(--blush);
+      background: transparent;
+      color: var(--deep-red);
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--deep-red);
+      border-color: var(--deep-red);
+      color: var(--white);
+    }
+
+    /* ── Search ── */
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: auto;
+    }
+
+    #search {
+      border: 1.5px solid var(--blush);
+      background: var(--white);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.82rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 2rem;
+      width: 180px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #search:focus {
+      border-color: var(--deep-red);
+    }
+
+    /* ── Main grid ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .results-count {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .wine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+    }
+
+    /* ── Wine card ── */
+    .wine-card {
+      background: var(--white);
+      border: 1px solid rgba(90,26,46,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .wine-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(90,26,46,0.12);
+    }
+
+    .card-color-bar {
+      height: 5px;
+    }
+
+    .wine-card.red    .card-color-bar { background: linear-gradient(90deg, #6b1a2e, #a83050); }
+    .wine-card.white  .card-color-bar { background: linear-gradient(90deg, #c9a84c, #e8d06a); }
+    .wine-card.rosé   .card-color-bar { background: linear-gradient(90deg, #d47a8a, #f0aab8); }
+    .wine-card.tannat .card-color-bar { background: linear-gradient(90deg, #3a0f22, #7d2a3c); }
+
+    .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+
+    .wine-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      line-height: 1.25;
+      flex: 1;
+    }
+
+    .wine-vintage {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-left: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--gold-light);
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .wine-producer {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .wine-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.55rem;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+
+    .tag-variety { background: rgba(90,26,46,0.08); color: var(--deep-red); }
+    .tag-region  { background: rgba(184,150,46,0.12); color: #7a5e10; }
+    .tag-type    { background: rgba(155,58,80,0.1); color: var(--wine); }
+
+    .wine-notes {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #3d2530;
+      flex: 1;
+      margin-bottom: 1.1rem;
+    }
+
+    /* ── Score ring ── */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(90,26,46,0.08);
+    }
+
+    .score-ring {
+      width: 48px;
+      height: 48px;
+      position: relative;
+    }
+
+    .score-ring svg {
+      transform: rotate(-90deg);
+    }
+
+    .score-ring .ring-bg {
+      fill: none;
+      stroke: rgba(90,26,46,0.1);
+      stroke-width: 4;
+    }
+
+    .score-ring .ring-fill {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 4;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    .score-number {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--burgundy);
+    }
+
+    .price-pair {
+      text-align: right;
+    }
+
+    .price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--burgundy);
+    }
+
+    .price-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── Flavor wheel chips ── */
+    .flavor-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .flavor-chip {
+      font-size: 0.66rem;
+      background: rgba(90,26,46,0.05);
+      border: 1px solid rgba(90,26,46,0.12);
+      color: var(--text-muted);
+      padding: 0.12rem 0.45rem;
+      border-radius: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── No results ── */
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--burgundy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    footer span {
+      color: var(--gold-light);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .filter-bar { gap: 0.35rem; }
+      .search-wrap { margin-left: 0; width: 100%; }
+      #search { width: 100%; }
+      .wine-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Curated Tasting Notes</p>
+  <h1>Vinos del <em>Uruguay</em></h1>
+  <p class="subtitle">From Montevideo's Atlantic breezes to Carmelo's ancient soils — a guide to Uruguay's most celebrated wines.</p>
+  <div class="header-rule"></div>
+</header>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="red">Red</button>
+  <button class="filter-btn" data-filter="white">White</button>
+  <button class="filter-btn" data-filter="rosé">Rosé</button>
+  <button class="filter-btn" data-filter="tannat">Tannat</button>
+  <div class="search-wrap">
+    <input type="search" id="search" placeholder="Search wines…" />
+  </div>
+</div>
+
+<main>
+  <p class="results-count" id="results-count"></p>
+  <div class="wine-grid" id="wine-grid"></div>
+  <p class="no-results" id="no-results" style="display:none;">No wines match your search.</p>
+</main>
+
+<footer>
+  Tasting notes curated for educational purposes &nbsp;·&nbsp; <span>Uruguay</span> — Wines of the Southern Cone
+</footer>
+
+<script>
+const wines = [
+  {
+    name: "Preludio Barrel Select Tannat",
+    producer: "Bodega Garzon",
+    vintage: 2021,
+    variety: "Tannat",
+    region: "Garzón, Maldonado",
+    type: "red",
+    score: 96,
+    price: "$55",
+    flavors: ["dark plum", "blackberry", "graphite", "smoked meat", "violet", "dark chocolate"],
+    notes: "One of Uruguay's benchmark expressions of Tannat. Dense and structured yet surprisingly elegant, this flagship bottling shows layers of dark plum, blackberry conserve, and graphite over a smoky, meaty undercurrent. The finish is long and mineral, anchored by fine-grained tannins that speak to the region's granite soils. Exceptional aging potential of 10–15 years."
+  },
+  {
+    name: "Deicas Juanico Single Vineyard Tannat",
+    producer: "Establecimiento Juanico",
+    vintage: 2019,
+    variety: "Tannat",
+    region: "Juanicó, Canelones",
+    type: "tannat",
+    score: 94,
+    price: "$38",
+    flavors: ["blackcurrant", "leather", "cedar", "espresso", "clove", "dried herb"],
+    notes: "A classic Uruguayan Tannat from one of the country's oldest estates. Rich blackcurrant and dried herb on the nose, with leather and cedar emerging after 20 minutes of air. The palate is full-bodied with a hallmark Tannat grip — firm, chewy tannins — balanced by a fresh Atlantic acidity. Pairs magnificently with the national dish: asado."
+  },
+  {
+    name: "Clos de Luz Essence Tannat",
+    producer: "Clos de Luz",
+    vintage: 2020,
+    variety: "Tannat",
+    region: "Canelones",
+    type: "tannat",
+    score: 95,
+    price: "$48",
+    flavors: ["blueberry", "fig", "mocha", "tobacco", "dried flowers", "iron"],
+    notes: "Biodynamically farmed and vinified with minimal intervention, this Tannat is a revelation of purity. The nose offers blueberry, dried fig, and dried flowers over a tobacco and iron minerality. The palate is concentrated but lifted — an impressive feat for the variety — with the signature iron-fisted tannins softened to velvet by extended barrel aging."
+  },
+  {
+    name: "Garzón Albariño",
+    producer: "Bodega Garzon",
+    vintage: 2023,
+    variety: "Albariño",
+    region: "Garzón, Maldonado",
+    type: "white",
+    score: 93,
+    price: "$28",
+    flavors: ["white peach", "grapefruit", "salinity", "jasmine", "green apple", "wet stone"],
+    notes: "Uruguay has quietly become one of the world's most exciting sources of Albariño. This estate bottling captures the oceanic character of Garzón's hillside vineyards: briny salinity, white peach, and grapefruit pith on the nose; a palate of green apple and jasmine with a thrillingly stony, saline finish. Remarkably food-friendly — oysters or ceviche are ideal companions."
+  },
+  {
+    name: "Pisano RPF Tannat",
+    producer: "Pisano Winery",
+    vintage: 2018,
+    variety: "Tannat",
+    region: "Progreso, Canelones",
+    type: "tannat",
+    score: 93,
+    price: "$32",
+    flavors: ["black cherry", "prune", "vanilla", "cocoa", "bay leaf", "pepper"],
+    notes: "The Pisano family has farmed Canelones for four generations, and this RPF bottling reflects that deep terroir knowledge. Black cherry and prune on the nose with a whisper of vanilla from 18 months in French oak. The palate delivers cocoa, bay leaf, and white pepper, with the characteristic Tannat tannins present but polished. A benchmark for the variety at this price point."
+  },
+  {
+    name: "Bouza Merlot Monte Vide Eu",
+    producer: "Bodega Bouza",
+    vintage: 2020,
+    variety: "Merlot",
+    region: "Montevideo",
+    type: "red",
+    score: 92,
+    price: "$35",
+    flavors: ["plum", "red currant", "mocha", "licorice", "clay", "mint"],
+    notes: "Bouza is a passion project by the Bouza family in the hills of Montevideo, and this Merlot is among their finest. Urban winemaking at its most refined: ripe plum and red currant lead the nose, with mocha and licorice following. The clay soils of Montevideo lend a distinctive earthiness — almost pottery-like — with a minty herbaceousness on the finish. Elegant and immediately approachable."
+  },
+  {
+    name: "Narbona Wine Lodge Tannat Reserva",
+    producer: "Bodega Narbona",
+    vintage: 2019,
+    variety: "Tannat",
+    region: "Carmelo, Colonia",
+    type: "tannat",
+    score: 91,
+    price: "$29",
+    flavors: ["cassis", "dark cherry", "earth", "toast", "clove", "smoke"],
+    notes: "Sourced from old vines in Carmelo — Uruguay's historic wine cradle near the Argentine border — this Tannat shows the rounder, warmer character of Colonia. Cassis, dark cherry, and toasted oak on the nose; the palate is generous and earthy with clove and a pleasant smoky finish. The tannins are softer than most Uruguayan Tannats, making this an ideal introduction to the variety."
+  },
+  {
+    name: "Alto de la Ballena Tannat-Viognier",
+    producer: "Alto de la Ballena",
+    vintage: 2022,
+    variety: "Tannat / Viognier",
+    region: "Atlántida, Canelones",
+    type: "red",
+    score: 92,
+    price: "$26",
+    flavors: ["violets", "blackberry", "apricot", "flint", "black pepper", "cream"],
+    notes: "A fascinating co-fermentation of 90% Tannat with 10% Viognier — a technique borrowed from the northern Rhône Valley that softens Tannat's formidable structure while adding perfume. The result is beautiful: violets and blackberry from the Tannat, apricot and cream from the Viognier. The tannins are grippy but harmonious, and the flint-and-pepper finish is distinctly Uruguayan."
+  },
+  {
+    name: "Familia Traversa Rosado de Tannat",
+    producer: "Familia Traversa",
+    vintage: 2023,
+    variety: "Tannat",
+    region: "Canelones",
+    type: "rosé",
+    score: 90,
+    price: "$18",
+    flavors: ["strawberry", "pomegranate", "hibiscus", "watermelon", "crisp acidity", "herbs"],
+    notes: "Proof that Tannat makes extraordinary rosé when handled with care. Salmon-pink in the glass, this direct-press rosado offers strawberry, pomegranate, and hibiscus on the nose — fresh and vivid. The Atlantic-influenced acidity gives it drive and length, while watermelon and dried herb notes add complexity. Serve well-chilled with seafood or simply on its own."
+  },
+  {
+    name: "Cerro del Toro Tannat Gran Reserva",
+    producer: "Bodegas Carrau",
+    vintage: 2017,
+    variety: "Tannat",
+    region: "Rivera",
+    type: "tannat",
+    score: 94,
+    price: "$42",
+    flavors: ["black fruit", "violets", "mineral", "tobacco leaf", "dark spice", "granite"],
+    notes: "From Rivera in northern Uruguay — bordering Brazil — this is a Tannat of majestic intensity. The extreme altitude and continental climate of Rivera produce wines with an almost Argentinian lift, yet unmistakably Uruguayan in their tannin structure. Black fruit and violets are backed by tobacco leaf and a granite minerality. With a decade of age, this is drinking at its peak."
+  },
+  {
+    name: "H. Stagnari Tannat Viejo",
+    producer: "Héctor Stagnari",
+    vintage: 2015,
+    variety: "Tannat",
+    region: "La Puebla, Canelones",
+    type: "tannat",
+    score: 93,
+    price: "$36",
+    flavors: ["dried plum", "leather", "balsamic", "tobacco", "terracotta", "walnut"],
+    notes: "A museum-piece Tannat from one of Uruguay's most revered producers. With a decade of bottle age, this wine has evolved beautifully: dried plum and balsamic vinegar on the nose, leather and terracotta on the palate. The tannins have fully integrated into a silky, complex whole. A reminder that great Tannat ages as gracefully as the finest Bordeaux."
+  },
+  {
+    name: "Garzón Petit Verdot Single Vineyard",
+    producer: "Bodega Garzon",
+    vintage: 2021,
+    variety: "Petit Verdot",
+    region: "Garzón, Maldonado",
+    type: "red",
+    score: 94,
+    price: "$50",
+    flavors: ["blueberry", "ink", "lavender", "dark chocolate", "graphite", "anise"],
+    notes: "Petit Verdot thrives in Garzón's granite soils where it rarely succeeds elsewhere. This single-vineyard bottling is opaque purple-black, with an intense nose of blueberry, ink, lavender, and dark chocolate. The palate is huge but polished — inky tannins and staggering concentration balanced by the site's natural acidity. A serious collector's wine and a testament to Garzón's unique terroir."
+  }
+];
+
+function buildCard(wine) {
+  const circumference = 2 * Math.PI * 18;
+  const pct = (wine.score - 85) / 15;
+  const offset = circumference * (1 - pct);
+
+  return `
+    <div class="wine-card ${wine.type}" data-type="${wine.type}" data-name="${wine.name.toLowerCase()}" data-producer="${wine.producer.toLowerCase()}" data-variety="${wine.variety.toLowerCase()}">
+      <div class="card-color-bar"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="wine-name">${wine.name}</h2>
+          <span class="wine-vintage">${wine.vintage}</span>
+        </div>
+        <p class="wine-producer">${wine.producer}</p>
+        <div class="wine-meta">
+          <span class="tag tag-variety">${wine.variety}</span>
+          <span class="tag tag-region">${wine.region}</span>
+          <span class="tag tag-type">${wine.type.charAt(0).toUpperCase() + wine.type.slice(1)}</span>
+        </div>
+        <div class="flavor-chips">
+          ${wine.flavors.map(f => `<span class="flavor-chip">${f}</span>`).join('')}
+        </div>
+        <p class="wine-notes">${wine.notes}</p>
+        <div class="card-footer">
+          <div class="score-ring" title="${wine.score} points">
+            <svg width="48" height="48" viewBox="0 0 40 40">
+              <circle class="ring-bg" cx="20" cy="20" r="18"/>
+              <circle class="ring-fill" cx="20" cy="20" r="18"
+                stroke-dasharray="${circumference}"
+                stroke-dashoffset="${offset}"/>
+            </svg>
+            <div class="score-number">${wine.score}</div>
+          </div>
+          <div class="price-pair">
+            <div class="price">${wine.price}</div>
+            <div class="price-label">avg. retail</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function render(list) {
+  const grid = document.getElementById('wine-grid');
+  const count = document.getElementById('results-count');
+  const none = document.getElementById('no-results');
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    none.style.display = 'block';
+    count.textContent = '';
+  } else {
+    none.style.display = 'none';
+    grid.innerHTML = list.map(buildCard).join('');
+    count.textContent = `${list.length} wine${list.length !== 1 ? 's' : ''}`;
+  }
+}
+
+let activeFilter = 'all';
+let searchQuery = '';
+
+function applyFilters() {
+  const q = searchQuery.trim().toLowerCase();
+  const filtered = wines.filter(w => {
+    const typeMatch = activeFilter === 'all' || w.type === activeFilter;
+    const textMatch = !q ||
+      w.name.toLowerCase().includes(q) ||
+      w.producer.toLowerCase().includes(q) ||
+      w.variety.toLowerCase().includes(q) ||
+      w.region.toLowerCase().includes(q) ||
+      w.flavors.some(f => f.includes(q));
+    return typeMatch && textMatch;
+  });
+  render(filtered);
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    applyFilters();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  applyFilters();
+});
+
+render(wines);
+</script>
+</body>
+</html>
