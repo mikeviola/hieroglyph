@@ -104,6 +104,17 @@ const ReaderModule = (() => {
     `;
   }
 
+  // Hybrid glyph rendering: words carrying an explicit `mdc` grouping render
+  // through the quadrat engine (proper stacks + cartouches); everything else
+  // uses the clean inline font, which lays out ordinary linear words best.
+  function renderGlyphs(word) {
+    if (word.mdc && typeof HieroRender !== 'undefined') {
+      const svg = HieroRender.toSVG(word.mdc, { size: 38, color: '#E8C547' });
+      if (svg) return svg;
+    }
+    return word.hieroglyphs;
+  }
+
   function renderWord(word, sectionId) {
     return `
       <span class="hiero-word"
@@ -112,7 +123,7 @@ const ReaderModule = (() => {
             onmouseenter="ReaderModule.showTooltip(event, '${word.id}', '${sectionId}')"
             onmouseleave="ReaderModule.hideTooltip()"
             onclick="ReaderModule.showDetail('${word.id}', '${sectionId}')">
-        <span class="hiero-glyph">${word.hieroglyphs}</span>
+        <span class="hiero-glyph">${renderGlyphs(word)}</span>
         <span class="hiero-translit">${word.transliteration}</span>
       </span>
     `;

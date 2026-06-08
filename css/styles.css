@@ -1256,6 +1256,17 @@ h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 600; }
   font-size: 2.8rem;
   color: var(--gold-light);
   line-height: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 54px;
+}
+/* Engine-rendered quadrats / cartouches (only for words with an `mdc`) */
+.hiero-glyph .hiero-svg {
+  display: block;
+  height: auto;
+  max-height: 58px;
+  width: auto;
 }
 .hiero-translit {
   font-family: 'Cinzel', serif;

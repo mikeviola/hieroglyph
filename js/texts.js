@@ -274,7 +274,7 @@ const TEXTS = {
         words: [
           {
             id: 'B7-w1',
-            hieroglyphs: '𓆥𓏏𓆤𓏏',
+            hieroglyphs: '𓆥',
             transliteration: 'nswt-bity',
             translation: 'King of Upper and Lower Egypt',
             pos: 'Royal title (dual kingship)',
@@ -287,7 +287,8 @@ const TEXTS = {
           },
           {
             id: 'B7-w2',
-            hieroglyphs: '𓋴𓎛𓏏𓊪𓄤𓇳',
+            hieroglyphs: '𓇳𓋴𓊵𓄣',
+            mdc: '<N5-S29-R4-F34>',
             transliteration: 'Sḥtp-ib-Rʿ',
             translation: 'Sehetep-ib-Ra (throne name of Amenemhat I)',
             pos: 'Royal prenomen (cartouche name)',
@@ -396,6 +397,7 @@ const TEXTS = {
           {
             id: 'A1-w3',
             hieroglyphs: '𓇋𓅓𓈖𓅓𓎛𓄿𓏏',
+            mdc: '<M17-G17-N35-G17-V28-G1-X1>',
             transliteration: 'Imn-m-ḥȝt',
             translation: 'Amenemhat',
             pos: 'Theophoric royal proper name',
@@ -566,8 +568,8 @@ const TEXTS = {
           },
           {
             id: 'S1-w3',
-            hieroglyphs: '𓄤𓎡𓄤𓆑𓂋',
-            mdc: 'F35-V31-F35:I9:D21',
+            hieroglyphs: '𓄣𓎡𓄤𓆑𓂋',
+            mdc: 'F34-V31-F35:I9:D21',
             transliteration: 'ỉb=k nfr',
             translation: 'your heart is well / let your heart be content',
             pos: 'Nominal sentence (verbless clause)',
