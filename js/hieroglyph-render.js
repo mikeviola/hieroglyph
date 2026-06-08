@@ -31,7 +31,8 @@ const HieroRender = (() => {
     while (i < src.length) {
       const c = src[i];
       if (c === ' ' || c === '\t' || c === '\n') { i++; continue; }
-      if (c === '-' || c === ':' || c === '*' || c === '(' || c === ')') {
+      if (c === '-' || c === ':' || c === '*' || c === '(' || c === ')'
+          || c === '<' || c === '>') {
         toks.push({ t: c }); i++; continue;
       }
       // a sign token: letters + digits (+ optional trailing variant letters)
@@ -43,11 +44,12 @@ const HieroRender = (() => {
   }
 
   // ── Recursive-descent parser ───────────────────────────────────────
-  //   line  := group ( '-' group )*
-  //   group := vert
-  //   vert  := horiz ( ':' horiz )*
-  //   horiz := factor ( '*' factor )*
-  //   factor:= SIGN | '(' vert ')'
+  //   line     := item ( '-' item )*
+  //   item     := cartouche | vert
+  //   cartouche:= '<' line '>'                  (royal name in a šnw ring)
+  //   vert     := horiz ( ':' horiz )*
+  //   horiz    := factor ( '*' factor )*
+  //   factor   := SIGN | '(' vert ')'
   function parse(toks) {
     let p = 0;
     const peek = () => toks[p];
@@ -71,11 +73,15 @@ const HieroRender = (() => {
       while (peek() && peek().t === ':') { eat(':'); const g = horiz(); if (g) kids.push(g); }
       return kids.length === 1 ? kids[0] : { type: 'stack', kids };
     }
+    function item() {
+      if (eat('<')) { const inner = line(); eat('>'); return { type: 'cartouche', kids: inner }; }
+      return vert();
+    }
     function line() {
-      const groups = []; let g = vert();
-      if (g) groups.push(g);
-      while (peek() && peek().t === '-') { eat('-'); const q = vert(); if (q) groups.push(q); }
-      return groups;
+      const items = []; let g = item();
+      if (g) items.push(g);
+      while (peek() && peek().t === '-') { eat('-'); const q = item(); if (q) items.push(q); }
+      return items;
     }
     return line();
   }
@@ -105,27 +111,26 @@ const HieroRender = (() => {
       return;
     }
     if (node.type === 'row') {
+      // Side-by-side: each child spans the FULL height of the group, widths
+      // split by their unit width. A tall sign thus stands full-height next
+      // to a stacked group (e.g. M23 beside X1:N35 in nswt).
       const total = node.kids.reduce((s, k) => s + k._w, 0) || 1;
       let cx = x;
       node.kids.forEach(k => {
         const kw = w * (k._w / total);
-        // vertically center the child within the row's height
-        const kh = h * (k._h / node._h);
-        const ky = y + (h - kh) / 2;
-        place(k, cx, ky, kw, kh, out, fill);
+        place(k, cx, y, kw, h, out, fill);
         cx += kw;
       });
       return;
     }
     if (node.type === 'stack') {
+      // Over/under: each child spans the FULL width of the group, heights
+      // split by their unit height.
       const total = node.kids.reduce((s, k) => s + k._h, 0) || 1;
       let cy = y;
       node.kids.forEach(k => {
         const kh = h * (k._h / total);
-        // horizontally center the child within the stack's width
-        const kw = w * (k._w / node._w);
-        const kx = x + (w - kw) / 2;
-        place(k, kx, cy, kw, kh, out, fill);
+        place(k, x, cy, w, kh, out, fill);
         cy += kh;
       });
       return;
@@ -147,35 +152,81 @@ const HieroRender = (() => {
     const missing = opts.missingColor || '#8B2020';
     const font    = "'Noto Sans Egyptian Hieroglyphs','Noto Sans',serif";
 
-    const groups = parse(tokenize(mdc || ''));
-    if (!groups.length) return '';
+    const items = parse(tokenize(mdc || ''));
+    if (!items.length) return '';
 
-    // Measure each quadrat and scale it to fit a Q×Q box (preserve aspect).
-    const quads = groups.map(g => {
-      const m = measure(g);
+    const cartPadH = Q * 0.16;   // horizontal breathing room inside a cartouche
+    const cartPadV = Q * 0.12;   // vertical breathing room inside a cartouche
+    const cartTie  = Q * 0.18;   // width reserved for the tie/knot bar
+    const cartStroke = Math.max(1.3, Q * 0.05);
+
+    const signs  = [];   // { code, x, y, w, h }
+    const shapes = [];   // { kind:'cartouche', x, y, w, h, stroke }
+
+    // Lay out one normal quadrat node; returns its rendered width.
+    function layoutQuadrat(node, x, topY) {
+      const m = measure(node);
       const scale = Q / Math.max(m.w, m.h);
-      return { node: g, w: m.w * scale, h: m.h * scale };
-    });
+      const w = m.w * scale, h = m.h * scale;
+      const qy = topY + (Q - h) / 2;        // center the quadrat on the line
+      place(node, x, qy, w, h, signs, fill);
+      return w;
+    }
 
-    const totalW = quads.reduce((s, q) => s + q.w, 0) + gap * (quads.length - 1) + pad * 2;
-    const totalH = Q + pad * 2;
+    // Lay out a sequence of items (quadrats and/or cartouches) left to right.
+    function layoutItems(list, startX, topY) {
+      let cx = startX;
+      list.forEach((it, i) => {
+        if (i > 0) cx += gap;
+        if (it.type === 'cartouche') {
+          const innerStart = cx + cartTie + cartPadH;
+          const innerW = layoutItems(it.kids, innerStart, topY);
+          const ringX = cx + cartTie;
+          shapes.push({
+            kind: 'cartouche',
+            x: ringX, y: topY - cartPadV,
+            w: innerW + cartPadH * 2, h: Q + cartPadV * 2,
+            tieX: cx, stroke: cartStroke
+          });
+          cx = ringX + innerW + cartPadH * 2;
+        } else {
+          cx += layoutQuadrat(it, cx, topY);
+        }
+      });
+      return cx - startX;
+    }
 
-    // Place every sign.
-    const signs = [];
-    let cx = pad;
-    quads.forEach(q => {
-      const qy = pad + (Q - q.h) / 2;   // vertically center the quadrat on the line
-      place(q.node, cx, qy, q.w, q.h, signs, fill);
-      cx += q.w + gap;
-    });
+    const topY    = pad + cartPadV;          // leave room for cartouche overshoot
+    const totalW  = layoutItems(items, pad, topY) + pad * 2;
+    const totalH  = Q + (pad + cartPadV) * 2;
 
     // Emit SVG.
     const parts = [];
     parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalW.toFixed(1)} ${totalH.toFixed(1)}" `
       + `width="${totalW.toFixed(1)}" height="${totalH.toFixed(1)}" class="hiero-svg" role="img">`);
+
+    // Cartouche rings (drawn behind the glyphs).
+    shapes.forEach(s => {
+      if (s.kind === 'cartouche') {
+        const rx = s.h / 2;
+        parts.push(`<rect x="${s.x.toFixed(1)}" y="${s.y.toFixed(1)}" `
+          + `width="${s.w.toFixed(1)}" height="${s.h.toFixed(1)}" rx="${rx.toFixed(1)}" ry="${rx.toFixed(1)}" `
+          + `fill="none" stroke="${color}" stroke-width="${s.stroke.toFixed(1)}"/>`);
+        // the tie/knot: a short bar across the start of the ring
+        const tieCx = s.tieX + cartTie * 0.55;
+        parts.push(`<line x1="${tieCx.toFixed(1)}" y1="${(s.y + s.h * 0.16).toFixed(1)}" `
+          + `x2="${tieCx.toFixed(1)}" y2="${(s.y + s.h * 0.84).toFixed(1)}" `
+          + `stroke="${color}" stroke-width="${s.stroke.toFixed(1)}" stroke-linecap="round"/>`);
+        parts.push(`<line x1="${tieCx.toFixed(1)}" y1="${(s.y + s.h / 2).toFixed(1)}" `
+          + `x2="${s.x.toFixed(1)}" y2="${(s.y + s.h / 2).toFixed(1)}" `
+          + `stroke="${color}" stroke-width="${s.stroke.toFixed(1)}"/>`);
+      }
+    });
+
+    // Glyphs (sized by cell height so tall signs fill the quadrat).
     signs.forEach(s => {
       const glyph = (typeof signToGlyph === 'function') ? signToGlyph(s.code) : null;
-      const fs = Math.min(s.w, s.h) * fill;
+      const fs = s.h * fill;
       const ccx = s.x + s.w / 2;
       const ccy = s.y + s.h / 2;
       if (glyph) {
@@ -183,11 +234,10 @@ const HieroRender = (() => {
           + `font-family="${font}" fill="${color}" text-anchor="middle" `
           + `dominant-baseline="central">${esc(glyph)}</text>`);
       } else {
-        // visible placeholder for an unmapped code (never silent)
         parts.push(`<rect x="${(s.x+s.w*0.1).toFixed(1)}" y="${(s.y+s.h*0.1).toFixed(1)}" `
           + `width="${(s.w*0.8).toFixed(1)}" height="${(s.h*0.8).toFixed(1)}" `
           + `fill="none" stroke="${missing}" stroke-width="1" rx="2"/>`);
-        parts.push(`<text x="${ccx.toFixed(1)}" y="${ccy.toFixed(1)}" font-size="${(fs*0.3).toFixed(1)}" `
+        parts.push(`<text x="${ccx.toFixed(1)}" y="${ccy.toFixed(1)}" font-size="${(Math.min(s.w,s.h)*0.3).toFixed(1)}" `
           + `font-family="monospace" fill="${missing}" text-anchor="middle" `
           + `dominant-baseline="central">${esc(s.code)}</text>`);
       }
