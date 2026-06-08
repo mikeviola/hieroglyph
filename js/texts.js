@@ -211,6 +211,7 @@ const TEXTS = {
           {
             id: 'B51-w3',
             hieroglyphs: '𓉐𓏤',
+            mdc: 'O1:Z1',
             transliteration: 'pr',
             translation: 'house / palace',
             pos: 'Noun',
@@ -566,6 +567,7 @@ const TEXTS = {
           {
             id: 'S1-w3',
             hieroglyphs: '𓄤𓎡𓄤𓆑𓂋',
+            mdc: 'F35-V31-F35:I9:D21',
             transliteration: 'ỉb=k nfr',
             translation: 'your heart is well / let your heart be content',
             pos: 'Nominal sentence (verbless clause)',
@@ -592,6 +594,7 @@ const TEXTS = {
           {
             id: 'S1-w5',
             hieroglyphs: '𓂋𓇾𓏤',
+            mdc: 'D21-N16:Z1',
             transliteration: 'r tȝ',
             translation: 'to land / to shore / home',
             pos: 'Prepositional phrase',

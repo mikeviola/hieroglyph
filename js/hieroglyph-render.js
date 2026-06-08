@@ -201,7 +201,34 @@ const HieroRender = (() => {
     el.innerHTML = toSVG(mdc, opts);
   }
 
-  return { toSVG, into, _parse: parse, _tokenize: tokenize };
+  // ── Reverse map: existing Unicode glyph string → linear MdC ─────────
+  // Lets any word render through the engine with no data migration. Words
+  // that carry an explicit `mdc` grouping override it; everything else
+  // falls back to this flat (one-quadrat-per-sign) reading.
+  let _INV = null;
+  function unicodeToMdc(str) {
+    if (!_INV) {
+      _INV = {};
+      if (typeof GARDINER !== 'undefined') {
+        for (const code in GARDINER) {
+          const ch = GARDINER[code];
+          if (!(ch in _INV)) _INV[ch] = code;   // first (canonical) code wins
+        }
+      }
+    }
+    return Array.from(str || '')
+      .map(ch => _INV[ch] || null)
+      .filter(Boolean)
+      .join('-');
+  }
+
+  // Render a text word object: prefers its `mdc` grouping, else reverse-maps.
+  function word(w, opts) {
+    const mdc = (w && w.mdc) ? w.mdc : unicodeToMdc(w && w.hieroglyphs);
+    return toSVG(mdc, opts);
+  }
+
+  return { toSVG, into, word, unicodeToMdc, _parse: parse, _tokenize: tokenize };
 })();
 
 if (typeof module !== 'undefined') module.exports = HieroRender;

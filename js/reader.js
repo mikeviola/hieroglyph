@@ -104,6 +104,16 @@ const ReaderModule = (() => {
     `;
   }
 
+  // Render a word's glyphs as proper MdC quadrats via the rendering engine.
+  // Falls back to the raw Unicode string if the engine isn't available.
+  function renderGlyphs(word) {
+    if (typeof HieroRender !== 'undefined') {
+      const svg = HieroRender.word(word, { size: 34 });
+      if (svg) return svg;
+    }
+    return word.hieroglyphs;
+  }
+
   function renderWord(word, sectionId) {
     return `
       <span class="hiero-word"
@@ -112,7 +122,7 @@ const ReaderModule = (() => {
             onmouseenter="ReaderModule.showTooltip(event, '${word.id}', '${sectionId}')"
             onmouseleave="ReaderModule.hideTooltip()"
             onclick="ReaderModule.showDetail('${word.id}', '${sectionId}')">
-        <span class="hiero-glyph">${word.hieroglyphs}</span>
+        <span class="hiero-glyph">${renderGlyphs(word)}</span>
         <span class="hiero-translit">${word.transliteration}</span>
       </span>
     `;
